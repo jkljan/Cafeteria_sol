@@ -1,4 +1,5 @@
 <?php
+//hola cuate  da
 // Clase para manejar la conexión a la base de datos usando PDO
 class Database {
 
