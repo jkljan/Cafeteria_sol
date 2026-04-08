@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../ports/ClienteRepositoryPort.php'; // Puerto del repo
 // Service para manejar la lógica de negocio de clientes
 class ClienteService {
 

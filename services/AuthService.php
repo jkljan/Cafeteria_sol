@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../ports/UsuarioRepositoryPort.php'; // Puerto del repo
 // Service para manejar la autenticación de usuarios
 class AuthService {
 

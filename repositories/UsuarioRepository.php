@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../ports/UsuarioRepositoryPort.php'; // Cargar la interfaz
 // Repositorio para manejar la tabla usuarios
 class UsuarioRepository implements UsuarioRepositoryPort {
 

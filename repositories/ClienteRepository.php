@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../ports/ClienteRepositoryPort.php'; // Cargar la interfaz
 // Repositorio para manejar operaciones con la tabla clientes
 class ClienteRepository implements ClienteRepositoryPort {
 

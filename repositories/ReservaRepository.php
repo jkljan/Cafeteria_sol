@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../ports/ReservaRepositoryPort.php'; // Cargar la interfaz
 // Repositorio para manejar operaciones con la tabla reservas
 class ReservaRepository implements ReservaRepositoryPort {
 
