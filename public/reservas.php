@@ -12,6 +12,10 @@ require_once "../services/ReservaService.php";
 require_once "../services/ClienteService.php";
 require_once "../controllers/ReservaController.php";
 require_once "../controllers/ClienteController.php";
+require_once "../events/EventManager.php";
+require_once "../events/EmailNotifier.php";
+require_once "../events/LogNotifier.php";
+
 
 // Conexión y DI
 $db = (new Database())->connect();
@@ -22,6 +26,15 @@ $clienteController = new ClienteController($clienteService);
 $reservaRepo = new ReservaRepository($db);
 $reservaService = new ReservaService($reservaRepo);
 $reservaController = new ReservaController($reservaService);
+
+
+$eventManager = new EventManager();
+$eventManager->subscribe(new EmailNotifier());
+$eventManager->subscribe(new LogNotifier());
+$reservaService = new ReservaService($reservaRepo, $eventManager);
+
+
+
 
 $mensaje = "";
 // Manejo de formulario POST

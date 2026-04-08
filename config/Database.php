@@ -1,5 +1,4 @@
 <?php
-//hola pendejo
 // Clase para manejar la conexión a la base de datos usando PDO
 class Database {
 

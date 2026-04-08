@@ -2,20 +2,30 @@
 // Service para manejar la lógica de negocio de reservas
 class ReservaService {
 
-    private $repo; // Repositorio de reservas
+    private $repo;
+    private $eventManager; 
 
-    // Constructor con inyección de dependencias
-    public function __construct($repo) {
+    // Inyección de dependencias
+    public function __construct($repo, $eventManager) {
         $this->repo = $repo;
+        $this->eventManager = $eventManager;
     }
 
     // Crear reserva con validación de duplicados
     public function crearReserva($cliente_id, $fecha, $hora, $mesa) {
-        // Verifica si ya existe una reserva para la misma mesa, fecha y hora
-        if ($this->repo->existeReserva($fecha, $hora, $mesa)) {
-            throw new Exception("La mesa ya está ocupada en esa fecha y hora");
-        }
-        return $this->repo->crear($cliente_id, $fecha, $hora, $mesa);
+    if ($this->repo->existeReserva($fecha, $hora, $mesa)) {
+        throw new Exception("La mesa ya está ocupada en esa fecha y hora");
+    }
+    $this->repo->crear($cliente_id, $fecha, $hora, $mesa);
+    // aqui se aplica publish subscribe
+    $this->eventManager->notify([
+        'cliente_id' => $cliente_id,
+        'fecha' => $fecha,
+        'hora' => $hora,
+        'mesa' => $mesa
+    ]);
+
+    return true;
     }
 
     // Listar reservas de una fecha específica
