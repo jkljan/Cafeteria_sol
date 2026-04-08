@@ -2,20 +2,17 @@
 // Service para manejar la autenticación de usuarios
 class AuthService {
 
-    private $repo; // Repositorio de usuarios
+    private $repo; // Ahora es UsuarioRepositoryPort
 
-    // Constructor con inyección de dependencias
-    public function __construct($repo) {
+    public function __construct(UsuarioRepositoryPort $repo) {
         $this->repo = $repo;
     }
 
-    // Función para iniciar sesión
     public function login($username, $password) {
-        $user = $this->repo->buscarPorUsuario($username); // Buscar usuario en DB
+        $user = $this->repo->buscarPorUsuario($username);
         if (!$user || $user['password'] !== md5($password)) {
-            throw new Exception("Usuario o contraseña incorrectos"); // Error login
+            throw new Exception("Usuario o contraseña incorrectos");
         }
-        // Guardar nombre de usuario en sesión
         $_SESSION['user'] = $user['username'];
         return true;
     }
