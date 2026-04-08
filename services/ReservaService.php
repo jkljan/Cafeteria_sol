@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../ports/ReservaRepositoryPort.php'; // Puerto del repo
 // Service para manejar la lógica de negocio de reservas
 class ReservaService {
 
