@@ -23,16 +23,18 @@ $clienteRepo = new ClienteRepository($db);
 $clienteService = new ClienteService($clienteRepo);
 $clienteController = new ClienteController($clienteService);
 
+/*
 $reservaRepo = new ReservaRepository($db);
 $reservaService = new ReservaService($reservaRepo);
 $reservaController = new ReservaController($reservaService);
-
+*/
 
 $eventManager = new EventManager();
 $eventManager->subscribe(new EmailNotifier());
 $eventManager->subscribe(new LogNotifier());
-$reservaService = new ReservaService($reservaRepo, $eventManager);
 
+$reservaService = new ReservaService($reservaRepo, $eventManager);
+$reservaController = new ReservaController($reservaService);
 
 
 
