@@ -16,37 +16,37 @@ require_once "../events/EventManager.php";
 require_once "../events/EmailNotifier.php";
 require_once "../events/LogNotifier.php";
 
-
-// Conexión y DI
+// ===== CONEXIÓN =====
 $db = (new Database())->connect();
+
+// ===== REPOSITORIOS =====
 $clienteRepo = new ClienteRepository($db);
-$clienteService = new ClienteService($clienteRepo);
-$clienteController = new ClienteController($clienteService);
-
-/*
 $reservaRepo = new ReservaRepository($db);
-$reservaService = new ReservaService($reservaRepo);
-$reservaController = new ReservaController($reservaService);
-*/
 
+// ===== SERVICES =====
+$clienteService = new ClienteService($clienteRepo);
+
+// ===== EVENTOS =====
 $eventManager = new EventManager();
 $eventManager->subscribe(new EmailNotifier());
 $eventManager->subscribe(new LogNotifier());
 
+// ===== SERVICE DE RESERVAS (con eventos) =====
 $reservaService = new ReservaService($reservaRepo, $eventManager);
+
+// ===== CONTROLLERS =====
+$clienteController = new ClienteController($clienteService);
 $reservaController = new ReservaController($reservaService);
 
-
-
+// ===== LÓGICA DE FORMULARIOS =====
 $mensaje = "";
-// Manejo de formulario POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['crear'])) {
-        $mensaje = $reservaController->crear($_POST); // Crear nueva reserva
+        $mensaje = $reservaController->crear($_POST);
     } elseif (isset($_POST['actualizar'])) {
-        $mensaje = $reservaController->actualizar($_POST); // Editar reserva
+        $mensaje = $reservaController->actualizar($_POST);
     } elseif (isset($_POST['eliminar'])) {
-        $mensaje = $reservaController->eliminar($_POST['id']); // Eliminar reserva
+        $mensaje = $reservaController->eliminar($_POST['id']);
     }
 }
 
