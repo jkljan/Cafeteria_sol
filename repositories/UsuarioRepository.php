@@ -1,18 +1,17 @@
 <?php
-// Repositorio para manejar la tabla usuarios (login)
-class UsuarioRepository {
+// Repositorio para manejar la tabla usuarios
+class UsuarioRepository implements UsuarioRepositoryPort {
 
-    private $db; // Conexión PDO
+    private $db;
 
     public function __construct($db) {
-        $this->db = $db; // Inyección de dependencias
+        $this->db = $db;
     }
 
-    // Buscar usuario por username
     public function buscarPorUsuario($username) {
         $sql = "SELECT * FROM usuarios WHERE username=?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$username]);
-        return $stmt->fetch(PDO::FETCH_ASSOC); // Retorna el usuario o false
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
