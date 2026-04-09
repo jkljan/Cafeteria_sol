@@ -5,12 +5,12 @@ class ReservaService {
 
     private $repo; // Ahora es ReservaRepositoryPort
     private $eventManager;
-
+    // Constructor de la clase, donde se inyectan las dependencias
     public function __construct(ReservaRepositoryPort $repo, $eventManager) {
-        $this->repo = $repo;
+        $this->repo = $repo; // Asigna la dependencia del repositorio a la propiedad interna
         $this->eventManager = $eventManager;
     }
-
+    
     public function crearReserva($cliente_id, $fecha, $hora, $mesa) {
         if ($this->repo->existeReserva($fecha, $hora, $mesa)) {
             throw new Exception("La mesa ya está ocupada en esa fecha y hora");
