@@ -5,7 +5,7 @@ class ClienteController {
 
     private $service; // Servicio de clientes
 
-    // Constructor con inyección de dependencias
+    // Constructor con inyección de dependencias 
     public function __construct($service) {
         $this->service = $service;
     }
