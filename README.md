@@ -99,6 +99,13 @@ http://localhost/Cafeteria_sol/public/login.php
   - logout.php
   - clientes.php
   - reservas.php
+#### api/
+  - clientes.php
+  - servicios.php
+#### ports/
+  - clienteRepositoryPort.php
+  - reservaRepositoryPort.php
+  - usuarioRepositoryPort.php
 #### event/
   - EmailNotifer.php
   - EventManager.php
